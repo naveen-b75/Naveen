@@ -1,0 +1,25 @@
+<?php $result=$block->getCollection();
+
+?>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    <?php
+    foreach ($result as $value){ ?>
+    <tr>
+        <td>
+            <?php
+                echo $value['name'];?>
+        </td>
+        <td>
+            <?php
+                echo $value['description'];
+            ?>
+        </td>
+            <td><a href="<?php echo $block->getUpdate().'id/'.$value->getId(); ?>"><button class="primary action">Edit</button></a></td>
+        <td><a href="<?= $block->getDeleteUrl($value->getId()) ?>"><button class="secondary action delete">Delete</button></a></td>
+    </tr>
+    <?php } ?>
+</table>

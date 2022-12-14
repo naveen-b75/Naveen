@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--This is for orders no and tracking number-->
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+<argument name="data" xsi:type="array">
+    <item name="js_config" xsi:type="array">
+        <item name="provider" xsi:type="string">helloworld_view_grid.helloworld_view_grid_data_source</item>
+        <item name="deps" xsi:type="string">helloworld_view_grid.helloworld_view_grid_data_source</item>
+    </item>
+    <item name="spinner" xsi:type="string">helloworld_columns</item>
+</argument>
+
+<dataSource name="helloworld_view_grid_data_source">
+    <argument name="dataProvider" xsi:type="configurableObject">
+        <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+        <argument name="name" xsi:type="string">helloworld_view_grid_data_source</argument>
+        <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+        <argument name="requestFieldName" xsi:type="string">entity_id</argument>
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </argument>
+</dataSource>
+
+<listingToolbar name="listing_top">
+    <settings>
+        <sticky>true</sticky>
+    </settings>
+    <bookmark name="bookmarks"/>
+    <columnsControls name="columns_controls"/>
+    <exportButton name="export_button"/>
+    <filterSearch name="fulltext"/>
+    <filters name="listing_filters"/>
+    <paging name="listing_paging"/>
+</listingToolbar>
+<columns name="helloworld_columns">
+    <selectionsColumn name="ids">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="indexField" xsi:type="string">entity_id</item>
+            </item>
+        </argument>
+    </selectionsColumn>
+    <column name="order_increment_id">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="filter" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Order Number</item>
+            </item>
+        </argument>
+    </column>
+    <column name="track_number">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="filter" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Tracking Number</item>
+            </item>
+        </argument>
+    </column>
+    <column name="customer_email">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="filter" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Customer Email</item>
+            </item>
+        </argument>
+    </column>
+    <column name="order_status">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="filter" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Order Status</item>
+            </item>
+        </argument>
+    </column>
+    <column name="order_total">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="filter" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Order Amount</item>
+            </item>
+        </argument>
+    </column>
+    <actionsColumn name="actions" class="Magento\Sales\Ui\Component\Listing\Column\ViewAction">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="viewUrlPath" xsi:type="string">sales/shipment/view</item>
+                <item name="urlEntityParamName" xsi:type="string">shipment_id</item>
+            </item>
+        </argument>
+        <settings>
+            <indexField>entity_id</indexField>
+        </settings>
+    </actionsColumn>
+</columns>
+</listing>

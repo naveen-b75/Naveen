@@ -1,0 +1,19 @@
+.field-from{
+    display: none;
+}
+.field-to{
+    display: none;
+}
+.field-show_empty_rows{
+     display: none;
+}
+.admin__data-grid-toolbar{
+       display: none;
+}
+.admin__data-grid-wrap-static{
+    display: none;
+}
+
+.messages{
+    display: none;
+}

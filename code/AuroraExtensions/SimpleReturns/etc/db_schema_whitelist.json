@@ -1,0 +1,88 @@
+{
+    "simplereturns_rma": {
+        "column": {
+            "rma_id": true,
+            "store_id": true,
+            "order_id": true,
+            "pkg_id": true,
+            "status": true,
+            "reason": true,
+            "resolution": true,
+            "comments": true,
+            "remote_ip": true,
+            "token": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SIMPLERETURNS_RMA_ORDER_ID": true,
+            "SIMPLERETURNS_RMA_PKG_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "simplereturns_rma_attachment": {
+        "column": {
+            "attachment_id": true,
+            "rma_id": true,
+            "filename": true,
+            "filepath": true,
+            "filesize": true,
+            "mimetype": true,
+            "thumbnail": true,
+            "token": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SIMPLERETURNS_RMA_ATTACHMENT_RMA_ID": true
+        },
+        "constraint": {
+            "SIMPLERETURNS_RMA_ATTACHMENT_RMA_ID_SIMPLERETURNS_RMA_RMA_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "simplereturns_package": {
+        "column": {
+            "pkg_id": true,
+            "rma_id": true,
+            "label_id": true,
+            "carrier_code": true,
+            "method_code": true,
+            "container_type": true,
+            "description": true,
+            "remote_ip": true,
+            "token": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SIMPLERETURNS_PACKAGE_RMA_ID": true,
+            "SIMPLERETURNS_PACKAGE_LABEL_ID": true
+        },
+        "constraint": {
+            "SIMPLERETURNS_PACKAGE_RMA_ID_SIMPLERETURNS_RMA_RMA_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "simplereturns_label": {
+        "column": {
+            "label_id": true,
+            "pkg_id": true,
+            "image": true,
+            "tracking_number": true,
+            "remote_ip": true,
+            "token": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SIMPLERETURNS_LABEL_PKG_ID": true
+        },
+        "constraint": {
+            "SIMPLERETURNS_LABEL_PKG_ID_SIMPLERETURNS_PACKAGE_PKG_ID": true,
+            "PRIMARY": true
+        }
+    }
+}

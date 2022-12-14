@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <body>
+       <referenceContainer name="page.main.title">
+          <container name="order.action.container" htmlTag="div" htmlClass="actions-toolbar order-action-toolbar">
+              <block name="sales.order.info.buttons" class="Magento\Sales\Block\Order\Info\Buttons" as="buttons" template="Helloworld_Mymodule::cancel.phtml"/>
+          </container>
+       </referenceContainer>
+   </body>
+</page>

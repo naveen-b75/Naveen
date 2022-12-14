@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Welcome to My page</title>
+        <css src="Helloworld_Mymodule::css/styles.css" rel="stylesheet" type="text/css"  />
+        <script src="Helloworld_Mymodule::js/custom.js"/>
+    </head>
+    <body>
+        <referenceContainer name="main">
+            <block class="Helloworld\Mymodule\Block\Ratings"
+                   template="Helloworld_Mymodule::reviews.phtml" />
+        </referenceContainer>
+    </body>
+</page>

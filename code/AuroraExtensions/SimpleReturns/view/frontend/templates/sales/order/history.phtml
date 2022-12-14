@@ -1,0 +1,105 @@
+<?php
+/**
+ * history.phtml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.auroraextensions.com/magento/extensions/2.x/simplereturns/LICENSE.txt
+ *
+ * @package       AuroraExtensions_SimpleReturns
+ * @copyright     Copyright (C) 2019 Aurora Extensions <support@auroraextensions.com>
+ * @license       MIT License
+ */
+
+/**
+ * @use AuroraExtensions\SimpleReturns\Model\ViewModel\Sales\Order\HistoryView
+ * @use Magento\Sales\Api\Data\OrderInterface
+ * @use Magento\Sales\Block\Order\History
+ */
+
+/**
+ * @see Magento_Sales::order/history.phtml
+ * @var History $block
+ */
+use Magento\Framework\Data\Helper\PostHelper;
+use Magento\Sales\Helper\Reorder as ReorderHelper;
+
+/** @var HistoryView $viewModel */
+$viewModel = $block->getViewModel();
+
+/** @var OrderInterface[] $orders */
+$orders = $block->getOrders();
+
+/** @var int $count */
+$count = count($orders);
+?>
+<?= $block->getChildHtml('info') ?>
+<?php if ($count > 0): ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?= __('Orders') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= __('Order #') ?></th>
+                    <th scope="col" class="col date"><?= __('Date') ?></th>
+                    <?= $block->getChildHtml('extra.column.header') ?>
+                    <th scope="col" class="col shipping"><?= __('Ship To') ?></th>
+                    <th scope="col" class="col total"><?= __('Order Total') ?></th>
+                    <th scope="col" class="col status"><?= __('Status') ?></th>
+                    <th scope="col" class="col actions"><?= __('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php /** @var OrderInterface $order */ ?>
+            <?php foreach ($orders as $order): ?>
+                <tr>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Order #')) ?>" class="col id"><?= $order->getRealOrderId() ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>" class="col date"><?= $block->formatDate($order->getCreatedAt()) ?></td>
+                    <?php $extra = $block->getChildBlock('extra.container'); ?>
+                    <?php if ($extra): ?>
+                        <?php $extra->setOrder($order) ?>
+                        <?= $extra->getChildHtml() ?>
+                    <?php endif ?>
+                    <?php /** @var string $recipient */ ?>
+                    <?php $recipient = $order->getShippingAddress() ? $block->escapeHtml($order->getShippingAddress()->getName()) : '&nbsp;' ?>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Ship To')) ?>" class="col shipping"><?= $recipient ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Order Total')) ?>" class="col total"><?= $order->formatPrice($order->getGrandTotal()) ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>" class="col status"><?= $order->getStatusLabel() ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>" class="col actions">
+                        <a class="action view" href="<?= $block->getViewUrl($order) ?>">
+                            <span><?= __('View Order') ?></span>
+                        </a>
+                        <?php if ($this->helper(ReorderHelper::class)->canReorder($order->getEntityId())) : ?>
+                            <a class="action order" href="#" data-post="<?= $this->helper(PostHelper::class)->getPostData($block->getReorderUrl($order)) ?>">
+                                <span><?= __('Reorder') ?></span>
+                            </a>
+                        <?php endif ?>
+                        <?php /** @var bool $hasSimpleReturn */ ?>
+                        <?php $hasSimpleReturn = $viewModel->hasSimpleReturn($order) ?>
+                        <?php if ($hasSimpleReturn): ?>
+                            <a class="action simplereturns-rma-view" href="<?= $viewModel->getRmaViewUrl($order) ?>" target="_blank">
+                                <span><?= __('View Return') ?></span>
+                            </a>
+                        <?php elseif ($viewModel->isOrderEligible($order)): ?>
+                            <a class="action simplereturns-rma-create" href="<?= $viewModel->getRmaCreateUrl($order) ?>" target="_blank">
+                                <span><?= __('Return or replace items') ?></span>
+                            </a>
+                        <?php endif ?>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty">
+        <span><?= __('You have placed no orders.') ?></span>
+    </div>
+<?php endif ?>

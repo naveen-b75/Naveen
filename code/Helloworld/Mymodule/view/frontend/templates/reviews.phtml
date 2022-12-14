@@ -1,0 +1,313 @@
+<?php
+$reviewsCollection=$block->getReviews();
+$dateFormat = $block->getDateFormat() ? : \IntlDateFormatter::SHORT;
+$productsCollection=$block->getBestsellers();
+$bestSellerCollection=$block->getMostViewedProducts();
+$featuredCollection=$block->getFeaturedProducts();
+$newProductsCollection=$block->getNewProducts();
+$ordersCollection=$block->getSaleProducts();
+$wishlist=$block->getWishlistProducts();
+$getCustomerGroups=$block->getCustomerGroups();
+$customer=$block->customer();
+$productCategoryId=$block->getProductCategory(9);
+$categoryCollection=$block->getCategoryCollection($productCategoryId);
+$orderOptions=$block->getOrderOptions(46);
+$orders=$block->getAllOrders();
+
+
+echo '<pre>';
+echo print_r($orders->getData());
+echo '</pre>';
+
+?>
+
+<table>
+    <tr>
+        <th colspan="5"><h3><b>Total Reviews and Rating</b></h3></th>
+    </tr>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Name</th>
+        <th>Product Name</th>
+        <th>Date</th>
+    </tr>
+    <?php
+    foreach ($reviewsCollection AS $review) {?>
+    <tr>
+        <td> <?php echo $review->getTitle() ;?></td>
+        <td> <?php echo $review->getDetail() ?></td>
+        <td> <?php echo $review->getNickname()?></td>
+        <td>  <?php
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $product = $objectManager->create("Magento\Catalog\Model\Product")->load($review->getEntityPkValue());
+            ?>
+            <a href="<?= $product->getProductUrl() ?>"><?= $product->getName() ?></a>
+        </td>
+        <td> <?php echo $block->formatDate($review->getCreatedAt(), $dateFormat);?></td>
+        <td><?php
+            $countRatings = count($review->getRatingVotes());
+            if ($countRatings > 0) {
+            ?>
+            <div class="review-ratings">
+                <?php
+                $allRatings = 0;
+                foreach ($review->getRatingVotes() as $vote) {
+                    $allRatings = $allRatings + $vote->getPercent();
+                }
+                $allRatingsAvg = $allRatings / $countRatings;
+                ?>
+                <div class="rating-summary">
+                    <div class="rating-result" title="<?php echo $allRatingsAvg; ?>%">
+                        <meta itemprop="worstRating" content = "1"/>
+                        <meta itemprop="bestRating" content = "100"/>
+                        <span style="width:<?php echo $allRatingsAvg; ?>%">
+                            <span itemprop="ratingValue"><?php echo $allRatingsAvg; ?>%</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+        <?php } } ?>
+</table>
+<table>
+    <tr>
+        <th colspan="2"><h3><b>Best Seller Products</b></h3></th>
+    </tr>
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity Sold</th>
+    </tr>
+    <?php foreach ($productsCollection as $product){ ?>
+    <tr>
+        <td> <a href="<?= $product->getProductUrl() ?>"><?php echo $product->getProductName() ?></a> </td>
+        <td><?php echo '₹'.round($product->getProductPrice()) ?></td>
+        <td><?php echo round($product->getQtyOrdered()); ?></td>
+    </tr>
+    <?php } ?>
+</table>
+
+<table>
+    <tr>
+        <td><h3><b>Most Viewed Products</b></h3></td>
+    </tr>
+    <tr>
+        <th>ProductName</th>
+        <th>Price</th>
+        <th>Views</th>
+    </tr>
+    <?php
+    foreach($bestSellerCollection as $bestseller){?>
+    <tr>
+        <td><a href="<?= $bestseller->getProductUrl()?>"><?php echo $bestseller->getSku();?></td>
+        <td><?php
+            $objectManagers = \Magento\Framework\App\ObjectManager::getInstance();
+            $products = $objectManagers->create("Magento\Catalog\Model\Product")->load($bestseller->getEntityId());
+            ?>
+            <?= $products->getPrice() ?></td>
+        <td><?php echo $bestseller->getViews();?></td>
+
+    <?php
+        }
+        ?>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td><h3><b>Featured Products</b></h3></td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+    <?php
+    foreach ($featuredCollection as $featureditem){
+    ?>
+    <tr>
+        <td><?php echo $featureditem->getName(); ?></td>
+        <td><?php echo $featureditem->getPrice(); ?></td>
+        <td><?php echo $featureditem->getQty(); ?></td>
+    </tr><?php }?>
+</table>
+<table>
+    <tr>
+        <td><h3><b>Onsales Products</b></h3></td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <th>Original Price</th>
+        <th>Offer Price</th>
+        <th>Offer Starting Date</th>
+    </tr>
+    <?php
+    foreach ($ordersCollection as $newProducts){
+        ?>
+        <tr>
+        <td><?php echo $newProducts->getSku(); ?></td>
+        <td><?php echo $newProducts->getPrice(); ?></td>
+        <td><?php echo $newProducts->getSpecialPrice(); ?></td>
+        <td><?php echo $newProducts->getSpecialFromDate(); ?></td>
+        </tr><?php }?>
+</table>
+<table>
+    <tr>
+        <td><h3><b>Wishlist Products</b></h3></td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+    <?php
+    foreach ($wishlist as $wishlist){
+        ?>
+        <tr>
+        <td><?php echo $wishlist->getName(); ?></td>
+        <td><?php echo round($wishlist->getPrice()); ?></td>
+        <td><?php echo round($wishlist->getQty()); ?></td>
+        <td><?php echo $wishlist->getCustomerId(); ?></td>
+        </tr><?php }?>
+</table>
+<table>
+    <tr>
+        <td><h3><b>Product Categories</b></h3></td>
+    </tr>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Url</th>
+    </tr>
+    <?php
+    if($categoryCollection && count($categoryCollection)>0){
+    foreach ($categoryCollection as $category){
+        ?>
+        <tr>
+        <td><?php echo $category->getId(); ?></td>
+        <td><?php echo $category->getName(); ?></td>
+        <td> <a href="<?= $category->getUrl() ?>">Go To</a></td>
+        </tr><?php }}?>
+</table>
+<table>
+    <tr>
+        <td><h3><b>Currency Data</b></h3></td>
+    </tr>
+    <tr>
+        <th>Base Currency Code</th>
+        <th>Default Currency</th>
+        <th>Current Currency Code</th>
+        <th>Current Currency Rate</th>
+        <th>Current Currency Symbol</th>
+    </tr>
+    <tr>
+        <td><?=  $block->getBaseCurrencyCode()?></td>
+        <td><?=  $block->getDefaultCurrency()?></td>
+        <td><?=  $block->getCurrentCurrencyCode()?></td>
+        <td><?=  $block->getCurrentCurrencyRate()?></td>
+        <td><?=  $block->getCurrentCurrencySymbol()?></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td><h3><b>Customer Groups</b></h3></td>
+    </tr>
+    <tr>
+        <th>
+            Group Names
+        </th>
+    </tr>
+    <?php foreach ($getCustomerGroups as $groups){ ?>
+    <tr>
+
+        <td><?= $groups['label'];?></td>
+
+    </tr>
+    <?php }?>
+</table>
+<table>
+    <tr>
+        <td><h3><b>Logo Details</b></h3></td>
+    </tr>
+    <tr>
+        <th>
+            Src
+        </th>
+        <th>Alt</th>
+        <th>Size</th>
+    </tr>
+    <tr>
+        <td><a href="<?= $block->getLogosrc(); ?>">Logo Source</a></td>
+        <td><?= $block->getLogoAlt(); ?></td>
+        <td>Width : <?= $block->getLogoWidth() ?> , Height : <?= $block->getLogoHeight(); ?> </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td><h3><b>Order Options</b></h3></td>
+    </tr>
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>Id</th>
+        <th>Type</th>
+        <th>Value</th>
+    </tr>
+    <?php foreach ($orderOptions as $item) {
+        $options = $item->getProductOptions();
+    if (isset($options['options']) && !empty($options['options'])) {
+        foreach ($options['options'] as $option) {
+        ?>
+    <tr>
+        <td><?=  $option['label'] ?></td>
+        <td><?=  $option['option_id'] ?></td>
+        <td><?=  $option['option_type'] ?> </td>
+        <td><?=  $option['option_value'] ?></td>
+    </tr>
+    <?php }}} ?>
+</table>
+
+<?php
+$newCustomer=[
+        'customer'=>[
+            'firstname'=>'Nandu',
+            'lastname'=>'Pitlam',
+            'prefix'=>'P',
+            'email'=>'nandupitlam@gmail.com',
+            'password'=>'Illa12345'
+        ]
+];
+$block->createCustomer($newCustomer);
+
+$block->createInvoice(55);
+
+
+$block->createShipment(68);
+
+$order=[
+    'currency_id'=>'INR',
+    'email'=>'naveenprince18@gmail.com',
+    'shipping_address'=>[
+        "city"=> "hyderabad",
+        "company"=>"ken",
+        "country_id"=>"IN",
+        "email"=> "naveenprince18@gmail.com",
+        "firstname"=> "naveen",
+        "lastname"=> "illa",
+        "postcode"=> "500045",
+        "region"=> "Telangana",
+        "region_code"=> "TS",
+        "region_id"=>600,
+        "street"=> '4-42-517 asbestos colony',
+        "telephone"=> "1134567892"
+    ],
+    'items'=>[
+        ['product_id'=>'23','qty'=>'1','price'=>'900']
+    ]
+];
+//$block->createOrder($order);
+
+?>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock  name="logo">
+            <arguments>
+                <argument name="logo_file" xsi:type="string">images/39.png</argument>
+                <argument name="logo_alt" xsi:type="string">Own Logo</argument>
+                <argument name="logo_img_width" xsi:type="number">148</argument>
+                <argument name="logo_img_height" xsi:type="number">43</argument>
+            </arguments>
+        </referenceBlock>
+        <move element="minicart" destination="footer" before="-"/>
+        <referenceBlock name="report.bugs" remove="true"/>
+
+        <referenceBlock name="header.panel">
+            <block class="Magento\Framework\View\Element\Template"  name="shipping-notice" template="Magento_Theme::custom.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

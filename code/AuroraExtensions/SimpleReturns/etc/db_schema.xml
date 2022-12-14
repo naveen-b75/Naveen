@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * db_schema.xml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.auroraextensions.com/magento/extensions/2.x/simplereturns/LICENSE.txt
+ *
+ * @package       AuroraExtensions_SimpleReturns
+ * @copyright     Copyright (C) 2019 Aurora Extensions <support@auroraextensions.com>
+ * @license       MIT License
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="simplereturns_rma" resource="default" engine="innodb" comment="Simple Returns RMAs">
+        <column xsi:type="int" name="rma_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="RMA ID"/>
+        <column xsi:type="int" name="store_id" padding="10" unsigned="true" nullable="false" comment="Store ID"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" comment="Order ID"/>
+        <column xsi:type="int" name="pkg_id" padding="10" unsigned="true" nullable="true" comment="Package ID"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="32" comment="Status"/>
+        <column xsi:type="varchar" name="reason" nullable="true" length="64" comment="Reason"/>
+        <column xsi:type="varchar" name="resolution" nullable="true" length="32" comment="Resolution"/>
+        <column xsi:type="mediumtext" name="comments" nullable="true" comment="Comments"/>
+        <column xsi:type="varchar" name="remote_ip" nullable="true" length="128" comment="Remote IP Address"/>
+        <column xsi:type="varchar" name="token" nullable="true" length="128" comment="Token"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rma_id"/>
+        </constraint>
+        <index referenceId="SIMPLERETURNS_RMA_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <index referenceId="SIMPLERETURNS_RMA_PKG_ID" indexType="btree">
+            <column name="pkg_id"/>
+        </index>
+    </table>
+    <table name="simplereturns_rma_attachment" resource="default" engine="innodb" comment="Simple Returns RMA Attachments">
+        <column xsi:type="int" name="attachment_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Attachment ID"/>
+        <column xsi:type="int" name="rma_id" padding="10" unsigned="true" nullable="true" comment="RMA ID"/>
+        <column xsi:type="varchar" name="filename" nullable="true" length="512" comment="Filename"/>
+        <column xsi:type="varchar" name="filepath" nullable="true" length="1024" comment="File Path"/>
+        <column xsi:type="int" name="filesize" padding="10" unsigned="true" nullable="true" comment="Filesize"/>
+        <column xsi:type="varchar" name="mimetype" nullable="true" length="32" comment="MIME Type"/>
+        <column xsi:type="varchar" name="thumbnail" nullable="true" length="1024" comment="Thumbnail Path"/>
+        <column xsi:type="varchar" name="token" nullable="true" length="128" comment="Token"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="foreign" referenceId="SIMPLERETURNS_RMA_ATTACHMENT_RMA_ID_SIMPLERETURNS_RMA_RMA_ID"
+                    table="simplereturns_rma_attachment" column="rma_id" referenceTable="simplereturns_rma"
+                    referenceColumn="rma_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="attachment_id"/>
+        </constraint>
+        <index referenceId="SIMPLERETURNS_RMA_ATTACHMENT_RMA_ID" indexType="btree">
+            <column name="rma_id"/>
+        </index>
+    </table>
+    <table name="simplereturns_package" resource="default" engine="innodb" comment="Simple Returns Packages">
+        <column xsi:type="int" name="pkg_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Package ID"/>
+        <column xsi:type="int" name="rma_id" padding="10" unsigned="true" nullable="false" comment="RMA ID"/>
+        <column xsi:type="int" name="label_id" padding="10" unsigned="true" nullable="true" comment="Label ID"/>
+        <column xsi:type="varchar" name="carrier_code" nullable="true" length="32" comment="Carrier Code"/>
+        <column xsi:type="varchar" name="method_code" nullable="true" length="32" comment="Method Code"/>
+        <column xsi:type="varchar" name="container_type" nullable="true" length="32" comment="Container Type"/>
+        <column xsi:type="varchar" name="description" nullable="true" length="128" comment="Description"/>
+        <column xsi:type="varchar" name="remote_ip" nullable="true" length="128" comment="Remote IP Address"/>
+        <column xsi:type="varchar" name="token" nullable="true" length="128" comment="Token"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="foreign" referenceId="SIMPLERETURNS_PACKAGE_RMA_ID_SIMPLERETURNS_RMA_RMA_ID"
+                    table="simplereturns_package" column="rma_id" referenceTable="simplereturns_rma"
+                    referenceColumn="rma_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="pkg_id"/>
+        </constraint>
+        <index referenceId="SIMPLERETURNS_PKG_RMA_ID" indexType="btree">
+            <column name="rma_id"/>
+        </index>
+        <index referenceId="SIMPLERETURNS_RMA_LABEL_ID" indexType="btree">
+            <column name="label_id"/>
+        </index>
+    </table>
+    <table name="simplereturns_label" resource="default" engine="innodb" comment="Simple Returns Labels">
+        <column xsi:type="int" name="label_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Label ID"/>
+        <column xsi:type="int" name="pkg_id" padding="10" unsigned="true" nullable="true" comment="Package ID"/>
+        <column xsi:type="blob" name="image" nullable="true" comment="Label Image"/>
+        <column xsi:type="varchar" name="tracking_number" nullable="true" length="128" comment="Tracking Number"/>
+        <column xsi:type="varchar" name="remote_ip" nullable="true" length="128" comment="Remote IP Address"/>
+        <column xsi:type="varchar" name="token" nullable="true" length="128" comment="Token"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="foreign" referenceId="SIMPLERETURNS_LABEL_PKG_ID_SIMPLERETURNS_PACKAGE_PKG_ID"
+                    table="simplereturns_label" column="pkg_id" referenceTable="simplereturns_package"
+                    referenceColumn="pkg_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="label_id"/>
+        </constraint>
+        <index referenceId="SIMPLERETURNS_LABEL_PKG_ID" indexType="btree">
+            <column name="pkg_id"/>
+        </index>
+    </table>
+</schema>

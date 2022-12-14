@@ -1,0 +1,67 @@
+<?php
+$products = $block->getCollection();?>
+<h2>Upcoming limited edition products</h2>
+<table>
+    <?php foreach($products as $post) {
+
+        ?>
+        <tr>
+            <td style="font-size: 20px;"><b>New Mobile - <a href="<?php echo $block->getArticleUrl($post->getId());?>"><?php echo $post->getProduct(); ?></a></b></td>
+            <td><a href="<?= $block->getDeleteUrl($post->getId()) ?>"> Delete</a></td>
+            <td><a href="<?php echo $block->editPage().'id/'.$post->getId(); ?>">Edit</a></td>
+        </tr>
+        <tr>
+            <td style="padding: 0px 0px 0px 15px"> <?php echo $post->getDescription(); ?></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <?php
+    }
+    ?>
+</table>
+<div style="text-align: right;">
+    <input type="button" class="action primary"  id="hide" value="Add More ">
+</div>
+<form style="display: none;" id="form" method="post" action="<?= $block->postUrl()?>">
+    <fieldset style="margin:3vh auto;width: 50%;">
+        <div>
+            <label for="product"><?= __("Product")?></label>
+            <input type="text" name="product">
+        </div>
+        <div>
+            <label for="description"><?= __("Description")?></label>
+            <input type="text" name="description">
+        </div>
+        <div style="padding-top: 10px;text-align: right" class="actions">
+            <input class="action primary" type="submit" value="<?= __("Add Product")?>">
+        </div>
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($) {
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                $("#form").toggle();
+            });
+        });
+    });
+</script>
+
+<?php
+$simpleproduct=[
+    'name' => 'Plastic Bottle',
+    'sku'=>'plastic bottle',
+    'price'=>'30',
+    'image'=>'bottle.jpeg',
+    'small_image'=>'bottle.jpeg',
+    'thumbnail'=>'bottle.jpeg',
+    'config_manage_stock'=>0,
+    'manage_stock'=>1,
+    'min_sale'=>1,
+    'max_sale'=>30,
+    'qty'=>300,
+    'weight'=>0.2
+];
+$block->Grouped();
+?>

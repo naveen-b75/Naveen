@@ -1,0 +1,10 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Helloworld_Mymodule::manager" title="Hello world" module="Helloworld_Mymodule" sortOrder="10" resource="Helloworld_Mymodule::manager"/>
+        <add id="Helloworld_Mymodule::index" parent="Helloworld_Mymodule::manager" action="helloworld/index/orders/" title="Helloworld" module="Helloworld_Mymodule" sortOrder="20" resource="Helloworld_Mymodule::index"/>
+        <add id="Helloworld_Mymodule::configuration" parent="Helloworld_Mymodule::manager" action="helloworld/index/index/" title="Order Details" module="Helloworld_Mymodule" sortOrder="10" resource="Helloworld_Mymodule::configuration"/>
+        <add id="Helloworld_Mymodule::report_productreport" title="Product" translate="title" module="Helloworld_Mymodule"
+             sortOrder="30" parent="Magento_Reports::report_salesroot" action="helloworld/report/product"
+             resource="Helloworld_Mymodule::product" dependsOnConfig="udemy/mysettings/my_report_status"/>
+    </menu>
+</config>

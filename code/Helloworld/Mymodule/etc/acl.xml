@@ -1,0 +1,21 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Helloworld_Mymodule::manager" title="Helloworld Menu" sortOrder="100">
+                    <resource id="Helloworld_Mymodule::index" title="Helloworld" sortOrder="10" translate="title">
+                        <resource id="Helloworld_Mymodule::actions" title="Actions" sortOrder="20" translate="title">
+                            <resource id="Helloworld_Mymodule::masscancel" title="MassCancel" sortOrder="30" translate="title"/>
+                        </resource>
+                    </resource>
+                    <resource id="Helloworld_Mymodule::configuration" title="Blog configuration" sortOrder="20"/>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Helloworld_Mymodule::config_blog"  title="Blog Configuration" sortOrder="50" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

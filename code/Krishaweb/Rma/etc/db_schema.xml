@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="krishaweb_rma_reason" engine="innodb" resource="default" comment="Post Table">
+        <column xsi:type="int" name="reason_id" unsigned="true" nullable="false" identity="true" comment="Patch Auto Increment" />
+        <column xsi:type="varchar" name="title" length="225" nullable="false" comment="title" />
+        <column xsi:type="int" name="status" comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="reason_id" />
+        </constraint>
+        <index referenceId="KRISHAWEB_RMA_TITLE" indexType="btree">
+            <column name="title"/>
+        </index>
+    </table>
+    <table name="krishaweb_rma_condition" engine="innodb" resource="default" comment="Post Table">
+        <column xsi:type="int" name="condition_id" unsigned="true" nullable="false" identity="true" comment="Condition ID"/>
+        <column xsi:type="varchar" length="255" name="title" nullable="false" comment="Title"/>
+        <column xsi:type="int" name="status"  comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="condition_id" />
+        </constraint>
+    </table>
+    <table name="krishaweb_rma_order" engine="innodb" resource="default" comment="Post Table">
+        <column xsi:type="int" name="rma_order_id" unsigned="true" nullable="false" identity="true" comment="Rma order id"/>
+        <column xsi:type="int" name="order_id" nullable="false" comment="Order Id"/>
+        <column xsi:type="int" name="status"  comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rma_order_id" />
+        </constraint>
+    </table>
+    <table name="krishaweb_rma_rma" engine="innodb" resource="default" comment="Post Table" >
+        <column xsi:type="int" name="rma_id" unsigned="true" identity="true" nullable="false" comment="Rma Id"/>
+        <column xsi:type="int" name="order_id" nullable="false" comment="Order Id"/>
+        <column xsi:type="int" name="qty_return" nullable="false" comment="Qty return"/>
+        <column xsi:type="varchar" name="reason" length="255" nullable="false" comment="Reason"/>
+        <column xsi:type="varchar" nullable="false" name="condition" length="255" comment="Condition"/>
+        <column xsi:type="int" name="item_id" nullable="false" comment="Item Id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rma_id" />
+        </constraint>
+    </table>
+    <table name="krishaweb_rma_status" engine="innodb" resource="default" comment="Post Table">
+        <column xsi:type="int" name="status_id" identity="true" nullable="false" unsigned="true" comment="Status Id"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false" comment="Title"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="status_id" />
+        </constraint>
+    </table>
+</schema>

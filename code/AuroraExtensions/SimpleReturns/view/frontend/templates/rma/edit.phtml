@@ -1,0 +1,138 @@
+<?php
+/**
+ * edit.phtml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.auroraextensions.com/magento/extensions/2.x/simplereturns/LICENSE.txt
+ *
+ * @package       AuroraExtensions_SimpleReturns
+ * @copyright     Copyright (C) 2019 Aurora Extensions <support@auroraextensions.com>
+ * @license       MIT License
+ */
+
+/**
+ * @use AuroraExtensions\SimpleReturns\Api\Data\SimpleReturnInterface
+ * @use AuroraExtensions\SimpleReturns\Model\ViewModel\Rma\EditView
+ * @use Magento\Framework\View\Element\Template
+ * @use Magento\Sales\Api\Data\OrderInterface
+ */
+
+/** @var Template $block */
+/** @var EditView $viewModel */
+$viewModel = $block->getViewModel();
+
+/** @var SimpleReturnInterface $rma */
+$rma = $viewModel->getSimpleReturn();
+
+/** @var OrderInterface $order */
+$order = $viewModel->getOrder();
+
+/** @var array $reasons */
+$reasons = $viewModel->getReasons();
+
+/** @var array $resolutions */
+$resolutions = $viewModel->getResolutions();
+
+/** @var string $formKey */
+$formKey = $viewModel->getFormKey();
+
+/** @var string $files */
+$files = $viewModel->getSerializedFiles();
+?>
+<div class="block simplereturns">
+    <div class="simplereturns-rma-form">
+        <div class="container-form">
+            <form action="<?= $block->escapeUrl($viewModel->getPostActionUrl()) ?>" method="POST">
+                <?= $block->getBlockHtml('formkey') ?>
+                <fieldset class="fieldset simplereturns" data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>">
+                    <legend class="legend">
+                        <span><?= $block->escapeHtml(__('Edit RMA Request for Order #%1', $order->getRealOrderId())) ?></span>
+                    </legend>
+                    <?= $block->getChildHtml('simplereturns_rma_edit_before_fields') ?>
+                    <div class="field reason required">
+                        <label class="label reason" for="reason">
+                            <span><?= $block->escapeHtml(__('Reason')) ?></span>
+                        </label>
+                        <div class="control">
+                            <select id="reason" name="simplereturns[reason]" class="select">
+                                <?php foreach ($reasons as $value => $label): ?>
+                                    <option value="<?= $block->escapeHtmlAttr(__($value)) ?>"<?php if ($value === $rma->getReason()): ?> selected<?php endif ?>>
+                                        <?= $block->escapeHtml(__($label)) ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field resolution required">
+                        <label class="label resolution" for="resolution">
+                            <span><?= $block->escapeHtml(__('Resolution')) ?></span>
+                        </label>
+                        <div class="control">
+                            <select id="resolution" name="simplereturns[resolution]" class="select">
+                                <?php foreach ($resolutions as $value => $label): ?>
+                                    <option value="<?= $block->escapeHtmlAttr(__($value)) ?>"<?php if ($value === $rma->getResolution()): ?> selected<?php endif ?>>
+                                        <?= $block->escapeHtml(__($label)) ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field comments optional">
+                        <label class="label comments" for="comments">
+                            <span><?= $block->escapeHtml(__('Comments')) ?></span>
+                        </label>
+                        <div class="control">
+                            <textarea id="comments" name="simplereturns[comments]"><?= $block->escapeHtml($rma->getComments()) ?></textarea>
+                        </div>
+                    </div>
+                    <?= $block->getChildHtml('simplereturns_rma_edit_after_fields') ?>
+                    <div id="attachment-dropzone" class="field attachments optional">
+                        <label class="label attachments" for="attachments">
+                            <span><?= $block->escapeHtml(__('Attachments')) ?></span>
+                        </label>
+                        <div class="control dropzone">
+                            <div class="dz-init">
+                                <div class="loading">
+                                    <div class="loading-bar"></div>
+                                    <div class="loading-bar"></div>
+                                    <div class="loading-bar"></div>
+                                    <div class="loading-bar"></div>
+                                </div>
+                            </div>
+                            <div class="dz-message dz-hide-message"><?= $block->escapeHtml(__('Drag and drop files or click to upload.')) ?></div>
+                        </div>
+                    </div>
+                    <?= $block->getChildHtml('simplereturns_rma_edit_after_media') ?>
+                </fieldset>
+                <script type="text/x-magento-init">
+                    {
+                        "#attachment-dropzone": {
+                            "simpleReturnsDragAndDrop": {
+                                "files": <?= /* @noEscape */ $files ?>,
+                                "formKey": "<?= $block->escapeHtml($formKey) ?>",
+                                "preload": true
+                            }
+                        }
+                    }
+                </script>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button class="action submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" type="submit">
+                            <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                        </button>
+                    </div>
+                    <div class="secondary">
+                        <button class="action cancel" title="<?= $block->escapeHtmlAttr(__('Cancel')) ?>" type="button">
+                            <a href="<?= $viewModel->getViewRmaUrl() ?>"><?= $block->escapeHtml(__('Cancel')) ?></a>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

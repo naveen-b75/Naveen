@@ -1,0 +1,15 @@
+<fieldset>
+    <form method="post" id="myform" action="<?php echo $block->saveNewData();?>" name="myform">
+        <div style="padding-top: 10px;">
+            <label><?php echo __('Product Name');?></label>
+            <input type="text" name="name" class="text"/>
+        </div>
+        <div style="padding-top: 10px;">
+            <label><?php echo __('Description');?></label>
+            <input type="text" name="description" class="text"/>
+        </div>
+        <div style="padding-top: 10px;text-align: right">
+            <button class="btn btn-primary"><?php echo __('Create');?></button>
+        </div>
+    </form>
+</fieldset>

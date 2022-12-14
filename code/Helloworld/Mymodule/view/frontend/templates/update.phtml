@@ -1,0 +1,18 @@
+<?php $result=$block->getRequestedData(); ?>
+
+<fieldset class="fieldset">
+    <form method="post" name="myform" action="<?php echo $block->saveData(); ?>">
+        <input type="hidden" name="id" value="<?php echo $result->getId()?>">
+        <div style="padding-top: 10px;">
+            <label class="label"><?= __('Name');?></label>
+            <input type="text" name="name" value="<?php echo $result->getName();?>" class="text">
+        </div>
+        <div style="padding-top: 10px;">
+            <label class="label"><?= __('Description');?></label>
+            <input type="text" name="description" value="<?php echo $result->getDescription();?>" class="text">
+        </div>
+        <div style="text-align: right;padding-top: 12px;">
+            <button class="submit action primary"><?= __('Update');?></button>
+        </div>
+    </form>
+</fieldset>

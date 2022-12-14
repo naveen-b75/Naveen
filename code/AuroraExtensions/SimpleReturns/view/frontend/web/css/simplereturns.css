@@ -1,0 +1,182 @@
+/**
+ * simplereturns.css
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.auroraextensions.com/magento/extensions/2.x/simplereturns/LICENSE.txt
+ *
+ * @package       AuroraExtensions_SimpleReturns
+ * @copyright     Copyright (C) 2019 Aurora Extensions <support@auroraextensions.com>
+ * @license       MIT License
+ */
+input[readonly] {
+  background-color: #fafafa;
+  opacity: 0.5;
+}
+
+.simplereturns .actions .action {
+  border: 2px solid #cccccc;
+  border-radius: 3px;
+  color: #5e5e5e;
+  display: inline-block;
+  margin: 3px 0 0;
+  padding: 2px 10px;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: top;
+}
+
+.simplereturns .actions .label {
+  display: inline-block;
+  font-size: 1.35rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.simplereturns .actions .disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.simplereturns .actions-toolbar,
+.simplereturns .details {
+  padding: 1rem 0;
+}
+
+.simplereturns .attachments {
+  display: block !important;
+  padding: 1rem 0;
+}
+
+.simplereturns .attachments .attachment {
+  display: inline-block;
+  height: 100px;
+  margin: 5px;
+  position: relative;
+  width: 100px;
+}
+
+.simplereturns .attachments .attachment.framed {
+  border: 1px solid rgba(229, 229, 229, 0.25);
+  border-radius: 2px;
+}
+
+.simplereturns .attachments .attachment.framed a {
+  display: block;
+  height: 100%;
+}
+
+.simplereturns .attachments .attachment img {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  max-height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.simplereturns .cancel a {
+  color: #333;
+}
+
+.simplereturns .cancel a:focus,
+.simplereturns .cancel a:hover {
+  text-decoration: none;
+}
+
+.simplereturns .details .info,
+.simplereturns .details .thumbnail {
+  display: inline-block;
+}
+
+.simplereturns .details .thumbnail {
+  float: right;
+  transform: translate(100%) rotate(90deg);
+  transform-origin: left top;
+  width: 33.333%;
+}
+
+.simplereturns .subtitle {
+  border-bottom: 1px solid #fafafa;
+  padding-bottom: 10px;
+}
+
+.simplereturns .toggle {
+  background: #575757;
+  border-radius: 50px;
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+  display: inline-block;
+  float: right;
+  height: 26px;
+  position: relative;
+  width: 80px;
+}
+
+.simplereturns .toggle:after {
+  color: #f6f6f6;
+  content: "NO";
+  font: 12px/26px Arial, sans-serif;
+  font-weight: bold;
+  position: absolute;
+  right: 10px;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15);
+  z-index: 0;
+}
+
+.simplereturns .toggle:before {
+  color: #f6f6f6;
+  content: 'YES';
+  font: 12px/26px Arial, sans-serif;
+  font-weight: bold;
+  left: 10px;
+  position: absolute;
+  z-index: 0;
+}
+
+.simplereturns .toggle label {
+  background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  border-radius: 50px;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  display: block;
+  height: 20px;
+  left: 3px;
+  position: absolute;
+  top: 3px;
+  transition: all 0.4s ease;
+  width: 34px;
+  z-index: 1;
+}
+
+.simplereturns .toggle input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.simplereturns .toggle input[type="checkbox"]:checked + label {
+  left: 43px;
+}
+
+.simplereturns .row span.title,
+.simplereturns .row span.value {
+  display: inline-block;
+  font-size: 1.5rem;
+}
+
+.simplereturns .row .title {
+  font-weight: 500;
+}
+
+.simplereturns .row .title:after {
+  content: "\003A";
+}
+
+.simplereturns .row .value {
+  font-weight: 300;
+  margin-bottom: 10px;
+}

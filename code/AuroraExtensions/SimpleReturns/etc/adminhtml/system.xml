@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * system.xml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.auroraextensions.com/magento/extensions/2.x/simplereturns/LICENSE.txt
+ *
+ * @package       AuroraExtensions_SimpleReturns
+ * @copyright     Copyright (C) 2019 Aurora Extensions <support@auroraextensions.com>
+ * @license       MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="auroraextensions" translate="label" sortOrder="1000">
+            <label>Aurora Extensions</label>
+        </tab>
+
+        <section id="simplereturns" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Simple Returns</label>
+            <tab>auroraextensions</tab>
+            <resource>AuroraExtensions_SimpleReturns::configuration</resource>
+            <!-- General Settings -->
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Simple Returns</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <!-- RMA Settings -->
+            <group id="returns" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>RMA Settings</label>
+                <field id="shipping_carrier" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Carrier</label>
+                    <source_model>AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Shipping\Carriers</source_model>
+                </field>
+                <field id="shipping_method" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Method</label>
+                    <source_model>AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Shipping\Methods</source_model>
+                </field>
+                <field id="order_amount_minimum" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Order Amount</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <comment>The minimum subtotal an order must be to permit returns.</comment>
+                </field>
+                <field id="order_amount_maximum" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum Order Amount</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="order_age_maximum" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum Order Age</label>
+                    <validate>validate-digits validate-zero-or-greater</validate>
+                    <comment>The number of days before an order is no longer eligible for prepaid return labels.</comment>
+                </field>
+                <field id="package_weight" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Package Weight</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <comment>The fixed package weight (in pounds) to set for prepaid return labels.</comment>
+                </field>
+                <field id="recipient_first_name" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Recipient First Name</label>
+                    <comment>The recipient first name on the return label.</comment>
+                </field>
+                <field id="recipient_last_name" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Recipient Last Name</label>
+                    <comment>The recipient last name on the return label.</comment>
+                </field>
+                <field id="return_form_url" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Return Form URL</label>
+                    <comment>The URL to the store return form.</comment>
+                </field>
+            </group>
+            <!-- Origin Settings -->
+            <group id="origin" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Origin Settings</label>
+                <field id="company" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Company Name</label>
+                    <comment>The company name used when creating shipping labels. Overrides the store name.</comment>
+                </field>
+            </group>
+            <!-- Administrator Settings -->
+            <group id="admin" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Administrator Settings</label>
+                <field id="rma_request_new_email_identity" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>New RMA Request Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="rma_request_new_email_template" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>New RMA Request Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+            <!-- Customer Settings -->
+            <group id="customer" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Settings</label>
+                <field id="rma_request_new_email_identity" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>New RMA Request Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="rma_request_new_email_template" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>New RMA Request Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="rma_request_status_change_email_identity" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RMA Request Status Change Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="rma_request_status_change_email_template" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RMA Request Status Change Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="rma_request_update_email_identity" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RMA Request Update Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="rma_request_update_email_template" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RMA Request Update Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,21 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="helloworld">
+        <column xsi:type="int" name="id" identity="true" unsigned="true"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="false"/>
+        <column xsi:type="varchar" name="description" length="255"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="quote">
+        <column xsi:type="date" name="delivery_date" comment="Delivery Date"/>
+    </table>
+    <table name="sales_order">
+        <column xsi:type="date" name="delivery_date" comment="Delivery Date"/>
+    </table>
+    <table name="sales_order_grid">
+        <column xsi:type="date" name="delivery_date" comment="Delivery Date"/>
+    </table>
+</schema>

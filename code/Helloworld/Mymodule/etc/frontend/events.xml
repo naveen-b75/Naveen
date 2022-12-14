@@ -1,0 +1,15 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+   <!-- <event name="helloworld_event_example">
+        <observer name="helloworld_event" instance="Helloworld\Mymodule\Observer\Helloworld"/>
+    </event>
+    <event name="catalog_controller_product_view">
+        <observer name="product_data_event" instance="Helloworld\Mymodule\Observer\ProductName"/>
+    </event>-->
+    <!--<event name="checkout_cart_product_add_after">
+        <observer name="product_custom_price" instance="Helloworld\Mymodule\Observer\CustomPrice"/>
+    </event>
+
+   <event name="sales_order_invoice_cancel">
+      <observer name="invoice_cancel_mail" instance="Helloworld\Mymodule\Observer\Cancel"/>
+   </event>-->
+</config>

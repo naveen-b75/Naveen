@@ -1,0 +1,46 @@
+<?php
+$data=$block->getAllData();
+$product="";
+$description="";
+if($data->getId()){
+    $product=$data->getProduct();
+    $description=$data->getDescription();
+}
+?>
+<div>
+    <div>
+        <form method="post" action="<?php echo $this->getForm()?>" id="myForm">
+            <fieldset style="border: none">
+                <legend class="legend"><?= (__("Edit Details"))?></legend>
+                <fieldset class="fieldset row">
+                    <?php
+                        if($data->getId()){
+                            ?>
+                            <input type="hidden" name="id" value="<?php echo $data->getId();?>" >
+                    <?php
+                        }
+                    ?>
+                    <div style="padding-top: 20px" class="fields col">
+                        <div>
+                            <label class="label" for="product"><?= (__("Product Name"))?></label>
+                            <div>
+                                <input type="text" name="product" value="<?php echo $product?>" class="input-text" data-validate="{required:true}">
+                            </div>
+                        </div>
+                        <div style="padding-top: 20px">
+                            <label class="label" for="description"><?= (__("Description"))?></label>
+                            <div>
+                                <input type="text" name="description" value="<?php echo $description?>" class="input-text">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </fieldset>
+            <div style="text-align: right" class="">
+                <div class="primary">
+                    <button type="submit" class="action submit primary"><?= (__("Save"))?>  </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

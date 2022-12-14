@@ -1,0 +1,34 @@
+<div>
+    <div>
+        <h1 class="center"><?php echo $block->helloworld();?> </h1>
+    </div>
+    <div class="center inner-div">
+        <div>
+            <button type="button" class="red btn">Red</button>
+
+           <button type="button" class="blue btn">Blue</button>
+       </div>
+    </div>
+    <div class="center" style="padding-top: 20px;">
+        <?php
+        $block->getHelper();
+        ?>
+    </div>
+</div>
+<div data-bind="scope: requestChild('child_a')">
+
+    <!-- ko template: getTemplate() --><!-- /ko -->
+
+</div>
+<div data-bind="scope: requestChild('child_a')">
+
+    <!-- ko template: getTemplate() --><!-- /ko -->
+
+</div>
+
+<!– ko foreach: getRegion(‘child_b’) –>
+<!– ko template: getTemplate() –><!– /ko –>
+<!– /ko –>
+
+
+

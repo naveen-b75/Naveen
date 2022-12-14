@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * di.xml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.auroraextensions.com/magento/extensions/2.x/simplereturns/LICENSE.txt
+ *
+ * @package       AuroraExtensions_SimpleReturns
+ * @copyright     Copyright (C) 2019 Aurora Extensions <support@auroraextensions.com>
+ * @license       MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="AuroraExtensions\SimpleReturns\Api\AbstractRepositoryInterface"
+                type="AuroraExtensions\SimpleReturns\Model\RepositoryModel\AbstractRepository"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\SimpleReturnManagementInterface"
+                type="AuroraExtensions\SimpleReturns\Model\ManagementModel\SimpleReturnManagement"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\SimpleReturnRepositoryInterface"
+                type="AuroraExtensions\SimpleReturns\Model\RepositoryModel\SimpleReturnRepository"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\Data\SimpleReturnInterface"
+                type="AuroraExtensions\SimpleReturns\Model\DataModel\SimpleReturn"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\Data\SimpleReturnSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\PackageManagementInterface"
+                type="AuroraExtensions\SimpleReturns\Model\ManagementModel\PackageManagement"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\PackageRepositoryInterface"
+                type="AuroraExtensions\SimpleReturns\Model\RepositoryModel\PackageRepository"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\Data\PackageInterface"
+                type="AuroraExtensions\SimpleReturns\Model\DataModel\Package"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\Data\PackageSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\LabelManagementInterface"
+                type="AuroraExtensions\SimpleReturns\Model\ManagementModel\LabelManagement"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\LabelRepositoryInterface"
+                type="AuroraExtensions\SimpleReturns\Model\RepositoryModel\LabelRepository"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\Data\LabelInterface"
+                type="AuroraExtensions\SimpleReturns\Model\DataModel\Label"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\Data\LabelSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\AttachmentManagementInterface"
+                type="AuroraExtensions\SimpleReturns\Model\ManagementModel\AttachmentManagement"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\AttachmentRepositoryInterface"
+                type="AuroraExtensions\SimpleReturns\Model\RepositoryModel\AttachmentRepository"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\Data\AttachmentInterface"
+                type="AuroraExtensions\SimpleReturns\Model\DataModel\Attachment"/>
+    <preference for="AuroraExtensions\SimpleReturns\Api\Data\AttachmentSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="AuroraExtensions\SimpleReturns\Csi\System\Module\ConfigInterface"
+                type="AuroraExtensions\SimpleReturns\Model\SystemModel\Module\Config"/>
+
+    <type name="AuroraExtensions\SimpleReturns\Model\RepositoryModel\SimpleReturnRepository">
+        <arguments>
+            <argument name="collectionFactory" xsi:type="object">AuroraExtensions\SimpleReturns\Model\ResourceModel\SimpleReturn\CollectionFactory</argument>
+            <argument name="searchResultsFactory" xsi:type="object">AuroraExtensions\SimpleReturns\Api\Data\SimpleReturnSearchResultsInterfaceFactory</argument>
+        </arguments>
+    </type>
+    <type name="AuroraExtensions\SimpleReturns\Model\RepositoryModel\PackageRepository">
+        <arguments>
+            <argument name="collectionFactory" xsi:type="object">AuroraExtensions\SimpleReturns\Model\ResourceModel\Package\CollectionFactory</argument>
+            <argument name="searchResultsFactory" xsi:type="object">AuroraExtensions\SimpleReturns\Api\Data\PackageSearchResultsInterfaceFactory</argument>
+        </arguments>
+    </type>
+    <type name="AuroraExtensions\SimpleReturns\Model\RepositoryModel\LabelRepository">
+        <arguments>
+            <argument name="collectionFactory" xsi:type="object">AuroraExtensions\SimpleReturns\Model\ResourceModel\Label\CollectionFactory</argument>
+            <argument name="searchResultsFactory" xsi:type="object">AuroraExtensions\SimpleReturns\Api\Data\LabelSearchResultsInterfaceFactory</argument>
+        </arguments>
+    </type>
+    <type name="AuroraExtensions\SimpleReturns\Model\SystemModel\Module\Config">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="carriers" xsi:type="array">
+                    <item name="ups" xsi:type="string">UPS</item>
+                    <item name="fedex" xsi:type="string">Fedex</item>
+                </item>
+                <item name="methods" xsi:type="array">
+                    <item name="ups" xsi:type="array">
+                        <item name="03" xsi:type="string">UPS Ground</item>
+                    </item>
+                    <item name="fedex" xsi:type="array">
+                        <item name="FEDEX_GROUND" xsi:type="string">Fedex Ground</item>
+                    </item>
+                </item>
+                <item name="reasons" xsi:type="array">
+                    <item name="defective_not_working" xsi:type="string">Item defective or doesn't work</item>
+                    <item name="inaccurate_description" xsi:type="string">Inaccurate website description</item>
+                    <item name="wrong_item" xsi:type="string">Wrong item was sent</item>
+                    <item name="no_longer_needed" xsi:type="string">No longer needed</item>
+                    <item name="bought_by_mistake" xsi:type="string">Bought by mistake</item>
+                    <item name="better_price_available" xsi:type="string">Better price available</item>
+                    <item name="damaged_pretransit" xsi:type="string">Product damaged, but shipping box OK</item>
+                    <item name="arrived_too_late" xsi:type="string">Item arrived too late</item>
+                    <item name="missing_broken_parts" xsi:type="string">Missing or broken parts</item>
+                    <item name="damaged_in_transit" xsi:type="string">Product and shipping box both damaged</item>
+                    <item name="extra_item" xsi:type="string">Received extra item I didn't buy (no refund needed)</item>
+                    <item name="unapproved_purchase" xsi:type="string">Didn't approve purchase</item>
+                </item>
+                <item name="resolutions" xsi:type="array">
+                    <item name="refund" xsi:type="string">Refund</item>
+                    <item name="repair" xsi:type="string">Repair</item>
+                    <item name="replacement" xsi:type="string">Replacement</item>
+                </item>
+                <item name="statuses" xsi:type="array">
+                    <item name="pending" xsi:type="string">Pending</item>
+                    <item name="approved" xsi:type="string">Approved</item>
+                    <item name="canceled" xsi:type="string">Canceled</item>
+                    <item name="declined" xsi:type="string">Declined</item>
+                    <item name="on_hold" xsi:type="string">On Hold</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Rma\Statuses"
+                 type="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Generic">
+        <arguments>
+            <argument name="key" xsi:type="string">statuses</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Rma\Reasons"
+                 type="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Generic">
+        <arguments>
+            <argument name="key" xsi:type="string">reasons</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Rma\Resolutions"
+                 type="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Generic">
+        <arguments>
+            <argument name="key" xsi:type="string">resolutions</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Shipping\Carriers"
+                 type="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Generic">
+        <arguments>
+            <argument name="key" xsi:type="string">carriers</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Shipping\Methods"
+                 type="AuroraExtensions\SimpleReturns\Model\BackendModel\Source\Select\Grouped\Generic">
+        <arguments>
+            <argument name="key" xsi:type="string">methods</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AuroraExtensions\SimpleReturns\Ui\Component\Control\Rma\SaveButton"
+                 type="AuroraExtensions\SimpleReturns\Ui\Component\Control\SaveButton">
+        <arguments>
+            <argument name="components" xsi:type="array">
+                <item name="simpleReturnsAjaxSaveRedirect" xsi:type="array"></item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AuroraExtensions\SimpleReturns\Ui\Component\Control\Rma\CancelButton"
+                 type="AuroraExtensions\SimpleReturns\Ui\Component\Control\CancelButton"></virtualType>
+    <virtualType name="AuroraExtensions\SimpleReturns\Ui\Component\Control\Package\SaveButton"
+                 type="AuroraExtensions\SimpleReturns\Ui\Component\Control\SaveButton">
+        <arguments>
+            <argument name="components" xsi:type="array">
+                <item name="simpleReturnsAjaxSaveRedirect" xsi:type="array"></item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AuroraExtensions\SimpleReturns\Ui\Component\Control\Package\CancelButton"
+                 type="AuroraExtensions\SimpleReturns\Ui\Component\Control\CancelButton">
+        <arguments>
+            <argument name="paramKey" xsi:type="string">pkg_id</argument>
+            <argument name="entityType" xsi:type="string">package</argument>
+        </arguments>
+    </virtualType>
+    <type name="AuroraExtensions\SimpleReturns\Ui\DataProvider\Grid\Rma\DataProvider">
+        <arguments>
+            <argument name="labels" xsi:type="array">
+                <item name="status" xsi:type="string">statuses</item>
+                <item name="reason" xsi:type="string">reasons</item>
+                <item name="resolution" xsi:type="string">resolutions</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="AuroraExtensions\SimpleReturns\Ui\DataProvider\Grid\Package\DataProvider">
+        <arguments>
+            <argument name="labels" xsi:type="array">
+                <item name="carriers" xsi:type="array">
+                    <item name="dhl" xsi:type="string">DHL</item>
+                    <item name="fedex" xsi:type="string">Fedex</item>
+                    <item name="ups" xsi:type="string">UPS</item>
+                    <item name="usps" xsi:type="string">USPS</item>
+                </item>
+                <item name="methods" xsi:type="array">
+                    <item name="03" xsi:type="string">UPS Ground</item>
+                    <item name="FEDEX_GROUND" xsi:type="string">Fedex Ground</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="AuroraExtensions\SimpleReturns\Ui\DataProvider\Form\Rma\DataProvider">
+        <arguments>
+            <argument name="labels" xsi:type="array">
+                <item name="status" xsi:type="string">statuses</item>
+                <item name="reason" xsi:type="string">reasons</item>
+                <item name="resolution" xsi:type="string">resolutions</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="AuroraExtensions\SimpleReturns\Ui\Component\Listing\Column\Rma\Actions"
+                 type="AuroraExtensions\SimpleReturns\Ui\Component\Listing\Column\Actions">
+        <arguments>
+            <argument name="paramKey" xsi:type="string">rma_id</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AuroraExtensions\SimpleReturns\Ui\Component\Listing\Column\Package\Actions"
+                 type="AuroraExtensions\SimpleReturns\Ui\Component\Listing\Column\Actions">
+        <arguments>
+            <argument name="paramKey" xsi:type="string">pkg_id</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider">
+        <arguments>
+            <argument name="addFieldStrategies" xsi:type="array">
+                <item name="simple_return" xsi:type="object">AuroraExtensions\SimpleReturns\Ui\DataProvider\Grid\Product\AddSimpleReturnFieldToCollection</item>
+            </argument>
+            <argument name="addFilterStrategies" xsi:type="array">
+                <item name="simple_return" xsi:type="object">AuroraExtensions\SimpleReturns\Ui\DataProvider\Grid\Product\AddSimpleReturnFilterToCollection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="simplereturns_rma_order_grid_data_source" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

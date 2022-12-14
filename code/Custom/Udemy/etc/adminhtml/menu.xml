@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Custom_Udemy::udemy" title="Udemy" translate="title" module="Custom_Udemy" sortOrder="550" resource="Custom_Udemy::udemy" action="udemy"/>
+    </menu>
+</config>

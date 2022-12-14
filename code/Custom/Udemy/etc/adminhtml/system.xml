@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="udemy" translate="label" sortOrder="800" >
+            <label>Udemy</label>
+        </tab>
+        <section id="udemy" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Udemy</label>
+            <tab>udemy</tab>
+            <resource>Custom_Udemy::udemy</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Item creations</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cron_expression" translate="label" type="text" sortOrder="20" showInDefault="1" showInStore="0" canRestore="1" showInWebsite="0">
+                    <label>Add Item Corn Expression</label>
+                </field>
+                <field id="checkbox" translate="label" type="checkbox" sortOrder="30" showInDefault="1" showInStore="0" canRestore="1" showInWebsite="0">
+                    <label>Checkbox Demo</label>
+                </field>
+                <field id="cart_price" translate="true" type="text" sortOrder="40" showInDefault="1" showInStore="0" showInWebsite="0" canRestore="1">
+                    <label>Define Cart Price</label>
+                </field>
+                <field id="custom_file_upload" translate="true" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="60" showInWebsite="1" showInDefault="1">
+                    <label>Upload Image</label>
+                    <backend_model>Custom\Udemy\Model\Config\Backend\File</backend_model>
+                    <upload_dir config="system" scope_info="1">demo</upload_dir>
+                </field>
+            </group>
+            <group id="mysettings" translate="label" sortOrder="20" showInWebsite="0" showInStore="0" showInDefault="1">
+                <label>My settings</label>
+                <field id="my_report_status" translate="label" type="select" sortOrder="20" showInDefault="1" showInStore="0" showInWebsite="0">
+                    <label>Show Product Report in Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

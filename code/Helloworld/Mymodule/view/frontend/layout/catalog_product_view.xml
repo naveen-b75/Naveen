@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!--<referenceContainer name="product.info.form.content">
+            <block class="Magento\Catalog\Block\Product\View" name="color.shade" template="Helloworld_Mymodule::preOrder.phtml" before="product.info.addtocart" />
+        </referenceContainer>-->
+        <referenceBlock name="product.info.details">
+            <block class="Magento\Catalog\Block\Product\View" name="test.tab" template="Helloworld_Mymodule::productTab.phtml" group="detailed_info" >
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Specifications</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="pre.order" template="Helloworld_Mymodule::preOrder.phtml" group="detailed_info" >
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Pre Order</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

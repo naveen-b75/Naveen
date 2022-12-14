@@ -1,0 +1,56 @@
+<style>
+    .custom.link.wishlist{
+        float:right;
+        padding-top: 15px;
+        padding-left: 2px;
+    }
+
+    .custom.link.wishlist .counter.qty{
+
+        color:#fff;
+
+        line-height: 18px;
+
+        display: inline-block;
+        margin:3px 0 0;
+
+        overflow:hidden;
+
+        text-align: center;
+        white-space: normal;
+    }
+    .wishlist-custom:before{
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 22px;
+        line-height: 28px;
+        color:white;
+        content: '\e600';
+        font-family: 'luma-icons';
+        margin:0;
+        vertical-align: top;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+        speak: none;
+        text-align: center;
+    }
+
+    .wishlist-custom .text{
+        border:0;
+        clip:rect(0,0,0,0);
+        height: 1px;
+        margin:-1px;
+        overflow: hidden;
+        padding:0;
+        position: absolute;
+        width:1px;
+    }
+</style>
+<div class="custom link wishlist" data-bind="scope:'wishlist-custom'">
+
+    <a <?= $block->getLinkAttributes() ?> class="wishlist-custom" >
+        <span class="text"><?= $block->escapeHtml($block->getLabel())?></span>
+        <span data-bind="text:wishlist().counter" class="counter qty"></span>
+    </a>
+</div>

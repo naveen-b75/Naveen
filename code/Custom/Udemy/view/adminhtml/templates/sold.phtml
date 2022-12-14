@@ -1,0 +1,41 @@
+<?php
+ini_set('max_input_vars', 10000);
+$id = $this->getRequest()->getParam('id');
+/*$orderData = $this->getOrderData($id);
+$reasons = $this->getReasons();
+$conditions = $this->getConditions();
+$status = $this->getStatus();
+$rmaOrderObj = $this->getRmaOrder($id);*/
+$demo=$this->getSoldCount();
+
+?>
+<div class="block item-rma-req">
+    <fieldset class="fieldset admin__fieldset " id="item_fieldset">
+        <legend class="admin__legend legend">
+            <span><?php echo __('Products Sold count');?></span>
+        </legend>
+        <br>
+        <div class="content">
+            <form method="post"  >
+                <div class="admin__field field field">
+                    <div class="admin__field-control" >
+                        <label name="from">From</label>
+                        <input class="admin__control-text _has-datepicker" type="text" name="from" autocomplete="on">
+                        <button type="button" class="ui-datepicker-trigger v-middle"><span>undefined</span></button>
+                    </div>
+                    <div class="admin__field-control" >
+                        <label name="to">To</label>
+                        <input class="admin__control-text _has-datepicker" type="text" name="to" autocomplete="on">
+                        <button type="button" class="ui-datepicker-trigger v-middle"><span>undefined</span></button>
+                    </div>
+                </div>
+                <div style="padding-top:10px">
+                    <button type="submit" class="action primary">Get Result</button>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+</div>
+
+
+

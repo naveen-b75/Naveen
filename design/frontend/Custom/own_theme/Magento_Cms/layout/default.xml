@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.wrapper">
+            <container name="page_top_after_nav" label="Page Top After Navigation Container" htmlTag="div" htmlClass="hero banner after-navigation" before="main.content"/>
+        </referenceContainer>
+
+
+
+        <referenceContainer name="footer">
+            <container name="contacts_footer_container" label="Contact Footer Container" htmlTag="div" htmlClass="links" before="cms_footer_links_container"/>
+            <container name="services_footer_links_container" label="Services Footer Links" htmlTag="div" htmlClass="links" after="cms_footer_links_container" />
+        </referenceContainer>
+
+        <referenceContainer name="contacts_footer_container">
+            <block class="Magento\Theme\Block\Html\Header\Logo" name="footer.logo">
+                <arguments>
+                    <argument name="logo_file" xsi:type="string">images/39.png</argument>
+                    <argument name="logo_alt" xsi:type="string">naveen</argument>
+                    <argument name="logo_img_width" xsi:type="number">80</argument>
+                    <argument name="logo_img_height" xsi:type="number">50</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Html\Links" name="footer_links_contact">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">footer links address</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="footer_links_contact">
+            <block class="Magento\Framework\View\Element\Text\TextList\Item" name="footer.contact.line.0">
+                <arguments>
+                    <argument name="li_params" xsi:type="array">
+                        <item name="class" xsi:type="string">contact-item</item>
+                    </argument>
+                    <argument name="inner_text" xsi:type="string">DUBLIN HQ</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Text\TextList\Item" name="footer.contact.line.1">
+                <arguments>
+                    <argument name="li_params" xsi:type="array">
+                        <item name="class" xsi:type="string">contact-item</item>
+                    </argument>
+                    <argument name="inner_text" xsi:type="string">43 Beaumont Rd</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Text\TextList\Item" name="footer.contact.line.2">
+                <arguments>
+                    <argument name="li_params" xsi:type="array">
+                        <item name="class" xsi:type="string">contact-item</item>
+                    </argument>
+                    <argument name="inner_text" xsi:type="string">Hyderabad, Telangana, India</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Text\TextList\Item" name="footer.contact.line.3">
+                <arguments>
+                    <argument name="li_params" xsi:type="array">
+                        <item name="class" xsi:type="string">contact-item</item>
+                    </argument>
+                    <argument name="inner_text" xsi:type="string">info@custom.com</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <referenceContainer name="cms_footer_links_container">
+
+            <block class="Magento\Framework\View\Element\Html\Links" name="footer_links_cms">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">footer links</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="footer_links_cms">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="about-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">About us</argument>
+                    <argument name="path" xsi:type="string">contact</argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="career-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Career</argument>
+                    <argument name="path" xsi:type="string">career</argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="terms-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Terms and Conditions</argument>
+                    <argument name="path" xsi:type="string">terms</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <move element="privacy-policy-link" destination="footer_links_cms" />
+    </body>
+</page>

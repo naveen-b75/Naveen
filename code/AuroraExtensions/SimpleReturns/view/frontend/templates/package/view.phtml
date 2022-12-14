@@ -1,0 +1,138 @@
+<?php
+/**
+ * view.phtml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.auroraextensions.com/magento/extensions/2.x/simplereturns/LICENSE.txt
+ *
+ * @package       AuroraExtensions_SimpleReturns
+ * @copyright     Copyright (C) 2019 Aurora Extensions <support@auroraextensions.com>
+ * @license       MIT License
+ */
+
+/** @var Magento\Framework\View\Element\Template $block */
+/** @var AuroraExtensions\SimpleReturns\Model\ViewModel\Package\ViewView $viewModel */
+$viewModel = $block->getViewModel();
+
+/** @var AuroraExtensions\SimpleReturns\Api\Data\PackageInterface $package */
+$package = $viewModel->getPackage();
+
+/** @var AuroraExtensions\SimpleReturns\Api\Data\SimpleReturnInterface $rma */
+$rma = $viewModel->getSimpleReturn();
+
+/** @var Magento\Sales\Api\Data\OrderInterface $order */
+$order = $viewModel->getOrder();
+
+/** @var string $carrierCode */
+$carrierCode = $viewModel->getShippingCarrier();
+
+/** @var string $packageWeight */
+$packageWeight = $viewModel->getPackageWeight();
+
+/** @var string $weightUnits */
+$weightUnits = $viewModel->getWeightUnits();
+
+/** @var bool $hasLabel */
+$hasLabel = $viewModel->hasLabel();
+?>
+<div class="block simplereturns">
+    <h2><?= $block->escapeHtml(__('View Package Details for Order #%1', $order->getRealOrderId())) ?></h2>
+    <h3 class="subtitle"><?= $block->escapeHtml(__('Actions')) ?></h3>
+    <div class="actions">
+        <a class="action" href="<?= $viewModel->getViewRmaUrl() ?>"><?= $block->escapeHtml(__('View RMA Details')) ?></a>
+        <?php if ($hasLabel): ?>
+        <a class="action" href="#" title="Print" data-mage-init='{"simpleReturnsLabelPrint":{}}'><?= $block->escapeHtml(__('Print Label')) ?></a>
+        <?php else: ?>
+        <a class="action" href="<?= $viewModel->getGenerateLabelUrl() ?>"><?= $block->escapeHtml(__('Generate Label')) ?></a>
+        <?php endif ?>
+    </div>
+    <h3 class="subtitle"><?= $block->escapeHtml(__('Details')) ?></h3>
+    <div class="details">
+        <div class="info">
+            <div class="row">
+                <span class="title"><?= $block->escapeHtml(__('Package')) ?></span>
+                <span class="value">
+                    <?= $block->escapeHtml(
+                        __(
+                            '#%1',
+                            $package->getFrontId()
+                        )
+                    ) ?>
+                </span>
+            </div>
+            <div class="row">
+                <span class="title"><?= $block->escapeHtml(__('Return')) ?></span>
+                <span class="value">
+                    <?= $block->escapeHtml(
+                        __(
+                            '#%1',
+                            $rma->getFrontId()
+                        )
+                    ) ?>
+                </span>
+            </div>
+            <div class="row">
+                <span class="title"><?= $block->escapeHtml(__('Order')) ?></span>
+                <span class="value">
+                    <?= $block->escapeHtml(
+                        __(
+                            '#%1',
+                            $order->getRealOrderId()
+                        )
+                    ) ?>
+                </span>
+            </div>
+            <div class="row">
+                <span class="title"><?= $block->escapeHtml(__('Shipping Carrier')) ?></span>
+                <span class="value">
+                    <?= $block->escapeHtml(
+                        __(
+                            '%1',
+                            $viewModel->getFrontLabel(
+                                'carriers',
+                                $carrierCode
+                            )
+                        )
+                    ) ?>
+                </span>
+            </div>
+            <div class="row">
+                <span class="title"><?= $block->escapeHtml(__('Shipping Method')) ?></span>
+                <span class="value">
+                    <?= $block->escapeHtml(
+                        __(
+                            '%1',
+                            $viewModel->getFrontLabel(
+                                'methods',
+                                $carrierCode,
+                                $viewModel->getShippingMethod()
+                            )
+                        )
+                    ) ?>
+                </span>
+            </div>
+            <div class="row">
+                <span class="title"><?= $block->escapeHtml(__('Package Weight')) ?></span>
+                <span class="value">
+                    <?= $block->escapeHtml(
+                        __(
+                            '%1 (%2)',
+                            $packageWeight,
+                            $weightUnits
+                        )
+                    ) ?>
+                </span>
+            </div>
+        </div>
+        <?php if ($hasLabel): ?>
+        <div class="thumbnail">
+            <img alt="Shipping Label" src="<?= $viewModel->getLabelDataUri() ?>"/>
+        </div>
+        <?php endif ?>
+    </div>
+</div>

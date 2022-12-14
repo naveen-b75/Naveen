@@ -1,0 +1,128 @@
+<?php
+/**
+ * create.phtml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.auroraextensions.com/magento/extensions/2.x/simplereturns/LICENSE.txt
+ *
+ * @package       AuroraExtensions_SimpleReturns
+ * @copyright     Copyright (C) 2019 Aurora Extensions <support@auroraextensions.com>
+ * @license       MIT License
+ */
+
+/** @var Magento\Framework\View\Element\Template $block */
+/** @var AuroraExtensions\SimpleReturns\Model\ViewModel\Package\CreateView $viewModel */
+$viewModel = $block->getViewModel();
+
+/** @var AuroraExtensions\SimpleReturns\Api\Data\SimpleReturnInterface $rma */
+$rma = $viewModel->getSimpleReturn();
+
+/** @var Magento\Sales\Api\Data\OrderInterface $order */
+$order = $viewModel->getOrder();
+
+/** @var string $carrierCode */
+$carrierCode = $viewModel->getShippingCarrier();
+
+/** @var float $packageWeight */
+$packageWeight = $viewModel->getPackageWeight();
+
+/** @var string $weightUnits */
+$weightUnits = $viewModel->getWeightUnits();
+?>
+<div class="block simplereturns simplereturns-package-create">
+    <h2><?= $block->escapeHtml(__('Create Return Package for Order #%1', $order->getRealOrderId())) ?></h2>
+    <h3 class="subtitle"><?= $block->escapeHtml(__('Actions')) ?></h3>
+    <div class="actions">
+        <form method="POST" action="<?= $block->escapeUrl($viewModel->getPostActionUrl()) ?>" id="simplereturns-package-create-form">
+            <?= $block->getBlockHtml('formkey') ?>
+            <fieldset class="fieldset simplereturns_package" data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>">
+                <div class="label request_label">
+                    <span><?= $block->escapeHtml(__('Generate Shipping Label')) ?></span>
+                    <span class="tooltip">
+                        <button type="button" data-tooltip="<?= $block->escapeHtmlAttr(__('You can defer this step until later')) ?>">&#9432;</button>
+                    </span>
+                </div>
+                <div class="field request_label toggle optional">
+                    <input type="checkbox"
+                           id="request_label"
+                           name="simplereturns_package[request_label]"
+                           data-validate="{required:true}"
+                           class="input-checkbox checkbox required"
+                           checked>
+                    <label class="request_label" for="request_label"></label>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <h3 class="subtitle"><?= $block->escapeHtml(__('Details')) ?></h3>
+    <div class="details">
+        <div class="row">
+            <span class="title"><?= $block->escapeHtml(__('Order')) ?></span>
+            <span class="value">
+                <?= $block->escapeHtml(
+                    __(
+                        '#%1',
+                        $order->getRealOrderId()
+                    )
+                ) ?>
+            </span>
+        </div>
+        <div class="row">
+            <span class="title"><?= $block->escapeHtml(__('Shipping Carrier')) ?></span>
+            <span class="value">
+                <?= $block->escapeHtml(
+                    __(
+                        '%1',
+                        $viewModel->getFrontLabel(
+                            'carriers',
+                            $carrierCode
+                        )
+                    )
+                ) ?>
+            </span>
+        </div>
+        <div class="row">
+            <span class="title"><?= $block->escapeHtml(__('Shipping Method')) ?></span>
+            <span class="value">
+                <?= $block->escapeHtml(
+                    __(
+                        '%1',
+                        $viewModel->getFrontLabel(
+                            'methods',
+                            $carrierCode,
+                            $viewModel->getShippingMethod()
+                        )
+                    )
+                ) ?>
+            </span>
+        </div>
+        <div class="row">
+            <span class="title"><?= $block->escapeHtml(__('Package Weight')) ?></span>
+            <span class="value">
+                <?= $block->escapeHtml(
+                    __(
+                        '%1 (%2)',
+                        $packageWeight,
+                        $weightUnits
+                    )
+                ) ?>
+            </span>
+        </div>
+    </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button class="action submit"
+                    form="simplereturns-package-create-form"
+                    onclick="!this.form && $('#' + $(this).attr('form')).submit()"
+                    title="<?= $block->escapeHtmlAttr(__('Confirm')) ?>"
+                    type="submit">
+                <span><?= $block->escapeHtml(__('Confirm')) ?></span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+
+<?php
+/** @var \Custom\Udemy\Block\Action $block */
+?>
+
+    <table class="table table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        <?php
+        foreach($block->getItems() as $key){
+        ?>
+        <tr>
+            <td><h5><?php echo $key->getTitle();?></h5></td>
+            <td><h5><?php echo $key->getContent();?></h5></td>
+        </tr>
+            <?php
+        };
+        ?>
+    </table>
+
+
+

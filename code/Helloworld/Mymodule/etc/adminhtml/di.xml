@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Reports\Model\ResourceModel\Refresh\Collection">
+        <plugin name="helloworld_mymodule_report_productreport" type="Helloworld\Mymodule\Plugin\Magento\Reports\Model\ResourceModel\Refresh\Collection" sortOrder="1" />
+    </type>
+    <type name="Magento\Reports\Controller\Adminhtml\Report\Statistics">
+        <arguments>
+            <argument name="reportTypes" xsi:type="array">
+                <item name="productreport" xsi:type="string">Helloworld\Mymodule\Model\ResourceModel\Report\Product</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

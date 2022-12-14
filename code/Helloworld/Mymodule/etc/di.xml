@@ -1,0 +1,71 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="helloworld_view_grid_data_source" xsi:type="string">Helloworld\Mymodule\Model\ResourceModel\Order\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--<type name="Magento\Checkout\Model\Cart">
+        <plugin name="customPluginQty" type="Helloworld\Mymodule\Plugin\Cart" sortOrder="1"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="customPluginName" type="Helloworld\Mymodule\Plugin\Cart" sortOrder="2"/>
+    </type>-->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="helloworld" xsi:type="object">Helloworld\Mymodule\Console\Command\InsertData</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider">
+        <arguments>
+            <argument name="addFieldStrategies" xsi:type="array">
+                <item name="manage_stock" xsi:type="object">Helloworld\Mymodule\Ui\DataProvider\Product\NewProductField</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="helloworld_order_grid_data_source" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="helloworld_order_grid_data_source" xsi:type="string">Helloworld\Mymodule\Model\ResourceModel\Collection\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--<type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="add_custom_field" type="Helloworld\Mymodule\Model\Plugin\Checkout\LayoutProcessor" sortOrder="100"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="quote_item_to_order_item" type="Helloworld\Mymodule\Plugin\Quote\ConvertQuoteItemToOrderItem"/>
+    </type>-->
+    <type name="Helloworld\Mymodule\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <virtualType name="Helloworld\Mymodule\Logger\Handler" type="Monolog\Logger">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Helloworld\Mymodule\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Helloworld\Mymodule\Controller\Index\Logger">
+        <arguments>
+            <argument name="logger" xsi:type="object">Helloworld\Mymodule\Logger\Logger</argument>
+        </arguments>
+    </type>
+<!--
+    <preference for="Magento\Sales\Block\Adminhtml\Report\Filter\Form" type="Helloworld\Mymodule\Block\Adminhtml\Sales\Form"/>
+-->
+    <preference for="Magento\Framework\Interception\ConfigLoaderInterface" type="Magento\Framework\Interception\PluginListGenerator" />
+    <preference for="Magento\Quote\Model\QuoteAddressValidator" type="Helloworld\Mymodule\Model\QuoteAddressValidation"/>
+</config>
